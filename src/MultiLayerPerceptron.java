@@ -3,12 +3,12 @@ public class MultiLayerPerceptron {
     private Neuron[][] Net;
 
 
-    //Initializer with number of inputs and number of outputs. Creates 2 Hidden layers with 10 Neurons
+    //Constructor with number of inputs and number of outputs. Creates 2 Hidden layers with 10 Neurons
     public MultiLayerPerceptron(int numInputs, int numOutputs) {
         this(numInputs,numOutputs,10,2);
     }
 
-    //Initializer with number of inputs, number of outputs, and amount of hidden layer neurons.
+    //Constructor with number of inputs, number of outputs, and amount of hidden layer neurons.
     public MultiLayerPerceptron(int numInputs, int numOutputs, int numHiddenNeurons, int numHiddenLayers) {
         //Initialize Instance
         numLayers = numHiddenLayers + 2;
@@ -21,10 +21,20 @@ public class MultiLayerPerceptron {
             Net[x] = new Neuron[numHiddenNeurons];
         }
 
-        //Initialize all Neurons
-        for (int x = 0; x < numLayers; x++) {
+        //Initialize Individual Neurons
+        initializeNet();
+    }
+
+    public void initializeNet() {
+        //Initialize first layer
+        for (int y = 0; y < Net[0].length; y++) {
+            Net[0][y] = new Neuron(Net[0].length);
+        }
+
+        //Initialize beyond first layer
+        for (int x = 1; x < numLayers; x++) {
             for (int y = 0; y < Net[x].length; y++) {
-                Net[x][y] = new Neuron();
+                Net[x][y] = new Neuron(Net[x-1].length);
             }
         }
     }
